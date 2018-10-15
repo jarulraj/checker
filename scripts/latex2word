@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+
+import os
+import sys
+import re
+import string
+
+LINE_SKIP = [
+    "%",
+    r"\begin",
+    r"\end",
+    r"\centering",
+]
+
+REMOVE = [
+    r"[~]?\\cite\{[\d\w\-]+(,[\d\w\-]+)*\}",
+    r"\\(label|section|subsection|chapter)\{.*?\}",
+    r"\\noindent ",
+    r"\\newcommand.*",
+    r"\\ifdefined.*",
+    r"\\setlength.*",
+    r"\\usepackage.*",
+    r"\\centering.*",
+    r"\\includegraphics.*",
+    r"\\caption.*",
+    r"\\input.*",
+    r".*?\\subfloat.*",
+]
+REPLACE = {
+    r"\\docName": "dissertation",
+    r"\\text[a-z]{2}\{(.*?)\}": r"\1",
+    r"\\emph\{(.*?)\}": r"\1",
+    r"\\item\[(.*?)\]": r"\1",
+    r"``(.*?)''": r'"\1"',
+    r"\\cut\{.*\}": "",
+    r"\\(cref)\{.*?\}": "Section X",
+    r"\$\\sim\$": "~",
+}
+
+REMOVE = map(re.compile, REMOVE)
+NEW_REPLACE = { }
+for regex,repl in REPLACE.iteritems():
+    NEW_REPLACE[re.compile(regex)] = repl
+REPLACE = NEW_REPLACE
+
+# -------------------------------------------------------------
+
+output = [ ]
+for target in sys.argv[1:]:
+    with open(target, "r") as fd:
+        strip = False
+        first = True
+        for line in fd:
+            
+            skip = False
+            for s in LINE_SKIP:
+                if line.startswith(s):
+                    skip = True
+                    break
+            if skip: continue
+            
+            for regex in REMOVE:
+                line = regex.sub("", line)
+            for regex,repl in REPLACE.iteritems():
+                line = regex.sub(repl, line)
+            
+            line = line.strip()
+            if len(line) == 0:
+                if strip: output.append("")
+                strip = False
+            elif strip:
+                output[-1] += " " + line
+            else:
+                if first:
+                    output.append("-- SOURCE: %s" % os.path.basename(target))
+                    first = False
+                output.append(line)
+                strip = True
+        ## FOR
+    ## WITH
+    output.append("")
+## FOR
+
+#print "-"*100
+print ("\n".join(output)).strip()
+#print "-"*100        
+
