@@ -1,7 +1,5 @@
-Packages needed
----------------
-
-A) Installation
+Installation
+------------
 
 - make (build system): ```sudo apt-get install build-essential```
 
@@ -9,7 +7,8 @@ A) Installation
 
 - aspell (spell checker): ```sudo apt-get install aspell aspell-en``` ([tutorial](http://xahlee.info/comp/aspell_spell_checking.html))
 
-B) Usage
+Usage
+------------
 
 - build pdf: ```make```
 
@@ -17,6 +16,12 @@ B) Usage
 
 - check spelling: ```make spellcheck```
 
-C) Writing assistant (optional): [Grammarly](https://www.grammarly.com/)
+Writing Assistant (optional): 
+------------
 
-Credits: [Matt Might](http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/)
+[Grammarly](https://www.grammarly.com/)
+
+Credits: 
+------------
+
+[Matt Might](http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/)
