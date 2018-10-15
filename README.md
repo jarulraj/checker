@@ -1,12 +1,33 @@
 Packages needed
 ---------------
 
-1) make (build system)
+A) Installation
+
+- make (build system)
 ```sudo apt-get install build-essential```
 
-2) latex (typesetting system)
+- latex (typesetting system)
 ```sudo apt-get install texlive```
 
-3) aspell (spell checker)
+- aspell (spell checker)
 ```sudo apt-get install aspell aspell-en```
 Tutorial: http://xahlee.info/comp/aspell_spell_checking.html
+
+B) Usage
+
+- build pdf
+```make```
+
+- check style
+```make stylecheck```
+
+- check spelling
+```make spellcheck```
+
+C) Writing assistant (optional)
+
+Grammarly: https://www.grammarly.com/
+
+D) Matt Might's article
+
+http://matt.might.net/articles/shell-scripts-for-passive-voice-weasel-words-duplicates/
